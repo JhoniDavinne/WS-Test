@@ -1,1 +1,1 @@
-# WS-Test
+# WS-Test with Javascript
