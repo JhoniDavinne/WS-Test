@@ -13,38 +13,6 @@
     <h3>Resposta do servidor:</h3>
     <div id="responseArea"></div>
 
-    <script>
-        const ws = new WebSocket("wss://echo.websocket.org");
-
-        ws.onopen = () => {
-            console.log("Conexão WebSocket estabelecida.");
-        };
-
-        ws.onmessage = (event) => {
-            const responseArea = document.getElementById("responseArea");
-            console.log("Mensagem recebida do servidor:", event.data);
-            responseArea.innerHTML += `<p>${event.data}</p>`;
-        };
-
-        ws.onclose = () => {
-            console.log("Conexão WebSocket fechada.");
-        };
-
-        ws.onerror = (error) => {
-            console.error("Erro na conexão WebSocket:", error);
-        };
-
-        function sendMessage() {
-            const messageInput = document.getElementById("messageInput");
-            const message = messageInput.value;
-
-            if (message) {
-                ws.send(message);
-                messageInput.value = "";
-            } else {
-                alert("Por favor, digite uma mensagem.");
-            }
-        }
-    </script>
+    <script src="websocket-2.js"></script>
 </body>
 </html>
