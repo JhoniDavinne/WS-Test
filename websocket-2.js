@@ -1,31 +1,46 @@
-const ws = new WebSocket("wss://echo.websocket.org");
+class WEBSOCKET {
+    constructor(server_url) {
+        this.server_url = server_url;
+        this.ws = null;
+    }
 
-ws.onopen = () => {
-    console.log("Conexão WebSocket estabelecida.");
-};
+    connect = () => {
+        this.ws = new WebSocket(this.server_url);
+        this.ws.onopen = this.onopen;
+        this.ws.onmessage = this.onmessage;
+        this.ws.onclose = this.onclose;
+        this.ws.onerror = this.onerror;
+    }
 
-ws.onmessage = (event) => {
-    const responseArea = document.getElementById("responseArea");
-    console.log("Mensagem recebida do servidor:", event.data);
-    responseArea.innerHTML += `<p>${event.data}</p>`;
-};
+    onopen = () => {
+        console.log("Conexão WebSocket estabelecida.");
+    };
 
-ws.onclose = () => {
-    console.log("Conexão WebSocket fechada.");
-};
+    onmessage = (event) => {
+        const responseArea = document.getElementById("responseArea");
+        responseArea.innerHTML += `<p>Mensagem recebida do servidor: ${event.data}</p>`;
+    };
 
-ws.onerror = (error) => {
-    console.error("Erro na conexão WebSocket:", error);
-};
+    onclose = () => {
+        console.log("Conexão WebSocket fechada.");
+    };
 
-function sendMessage() {
-    const messageInput = document.getElementById("messageInput");
-    const message = messageInput.value;
+    onerror = (error) => {
+        console.error("Erro na conexão WebSocket:", error);
+    };
 
-    if (message) {
-        ws.send(message);
-        messageInput.value = "";
-    } else {
-        alert("Por favor, digite uma mensagem.");
+    sendMessage = () => {
+        const messageInput = document.getElementById("messageInput");
+        const message = messageInput.value;
+    
+        if (message && this.ws) {
+            this.ws.send(message);
+            messageInput.value = "";
+        } else {
+            alert("Por favor, digite uma mensagem.");
+        }
     }
 }
+
+const ws = new WEBSCOKET("wss://echo.websocket.org");
+ws.connect();
