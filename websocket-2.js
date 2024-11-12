@@ -1,4 +1,4 @@
-class WEBSOCKET {
+class WEBSCOKET {
     constructor(server_url) {
         this.server_url = server_url;
         this.ws = null;
